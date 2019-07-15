@@ -1,0 +1,13 @@
+PREFIX schema: <http://schema.org/>
+PREFIX bag: <http://bag.basisregistraties.overheid.nl/def/bag#>
+PREFIX vcard: <http://www.w3.org/2006/vcard/ns#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?plaatsnaam (count(?tradeaction) AS ?object_per_plaats) WHERE {
+#FROM <http://archief.nl/verkaufbuchen/id/dataset/transactions>
+    ?tradeaction a schema:TradeAction ;
+                 schema:object/vcard:hasAddress/vcard:locality ?plaatsnaam .
+}
+GROUPBY ?plaatsnaam
+ORDERBY desc(?object_per_plaats)
